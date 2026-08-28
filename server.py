@@ -234,7 +234,7 @@ async def run_pipeline(job_id: str, api_key: str, candidate: str, agent_ids: lis
             emit("debate_progress", msg, {"stage": stage})
 
         debate_result = await run_full_debate(
-            all_agents, evaluations, api_key, num_rounds=2, progress_callback=debate_progress
+            all_agents, evaluations, api_key, num_rounds=1, progress_callback=debate_progress
         )
         emit("debate_complete", "✅ Debate completed", {"debate": debate_result})
 
