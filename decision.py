@@ -133,10 +133,17 @@ async def make_final_decision(
     # Format evaluations with weights
     eval_with_weights = []
     for ev in evaluations:
-        ev_copy = ev.copy()
-        ev_copy["agent_weight_in_decision"] = ev.get("agent_weight", 1.0)
-        eval_with_weights.append(ev_copy)
-
+        eval_with_weights.append({
+            "agent_id": ev.get("agent_id"),
+            "agent_name": ev.get("agent_name"),
+            "overall_score": ev.get("overall_score"),
+            "confidence": ev.get("confidence"),
+            "recommendation": ev.get("recommendation"),
+            "agent_weight_in_decision": ev.get("agent_weight", 1.0),
+            "summary": ev.get("summary"),
+            "key_strengths": [s.get("strength") for s in ev.get("key_strengths", [])][:3],
+            "key_concerns": [c.get("concern") for c in ev.get("key_concerns", [])][:3],
+        })
     messages = [
         {
             "role": "system",
@@ -150,8 +157,8 @@ async def make_final_decision(
             "role": "user",
             "content": DECISION_PROMPT.format(
                 job_description=job_description,
-                profile_json=json.dumps(profile, indent=2),
-                evaluations_json=json.dumps(eval_with_weights, indent=2),
+                profile_json=json.dumps(profile),
+                evaluations_json=json.dumps(eval_with_weights),
                 debate_summary="\n".join(debate_summary_parts),
                 opinion_changes=changes_text,
             ),

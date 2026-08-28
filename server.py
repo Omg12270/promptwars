@@ -187,6 +187,8 @@ async def run_pipeline(job_id: str, api_key: str, candidate: str, agent_ids: lis
         job["status"] = "running"
 
         # Load data
+        if candidate.lower() not in ("a", "b"):
+            raise ValueError("candidate must be 'a' or 'b'")
         suffix = candidate.lower()
         resume_text = load_data_file(f"resume_{suffix}.txt")
         transcript_text = load_data_file(f"transcript_{suffix}.txt")
