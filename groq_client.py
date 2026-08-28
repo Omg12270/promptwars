@@ -7,7 +7,7 @@ import httpx
 from typing import Optional
 
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-DEFAULT_MODEL = "llama-3.1-8b-instant"
+DEFAULT_MODEL = "openai/gpt-oss-20b"
 MAX_RETRIES = 3
 RETRY_DELAY = 2  # seconds
 
