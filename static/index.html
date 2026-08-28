@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interview Panel Simulator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Highlight.js for code formatting in markdown if needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <!-- Marked for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__logo">🤖</div>
+            <h1 class="header__title">AI Interview Panel Simulator</h1>
+            <p class="header__subtitle">Multi-Agent Debate & Decision Engine</p>
+        </header>
+
+        <!-- Configuration Section -->
+        <section class="config-section">
+            <div class="glass-card api-key-section">
+                <div class="section-header">
+                    <span class="section-header__icon">🔑</span>
+                    <h2 class="section-header__title">Groq API Key</h2>
+                    <span class="section-header__badge">Required</span>
+                </div>
+                <div class="api-key-input-wrapper">
+                    <input type="password" id="api-key-input" class="api-key-input" placeholder="gsk_..." autocomplete="off">
+                </div>
+                <a href="https://console.groq.com/keys" target="_blank" class="api-key-link">Get a free API key from Groq Console →</a>
+            </div>
+
+            <!-- Candidate Selection -->
+            <div class="glass-card" style="margin-bottom: 32px;">
+                <div class="section-header">
+                    <span class="section-header__icon">👤</span>
+                    <h2 class="section-header__title">Select Candidate</h2>
+                </div>
+                <div class="candidates-grid">
+                    <div class="glass-card candidate-card selected" data-candidate="a">
+                        <div class="candidate-card__header">
+                            <div class="candidate-card__avatar candidate-card__avatar--a">A</div>
+                            <div>
+                                <div class="candidate-card__name">Rohan Malhotra</div>
+                                <div class="candidate-card__title">Senior AI/Backend Engineer</div>
+                            </div>
+                            <div class="candidate-card__check">✓</div>
+                        </div>
+                        <div class="candidate-card__skills">
+                            <span class="skill-tag">Multi-Agent Systems</span>
+                            <span class="skill-tag">Fast-paced</span>
+                            <span class="skill-tag">3.5 YOE</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card candidate-card" data-candidate="b">
+                        <div class="candidate-card__header">
+                            <div class="candidate-card__avatar candidate-card__avatar--b">B</div>
+                            <div>
+                                <div class="candidate-card__name">Ananya Iyer</div>
+                                <div class="candidate-card__title">Software Engineer (Backend → AI)</div>
+                            </div>
+                            <div class="candidate-card__check">✓</div>
+                        </div>
+                        <div class="candidate-card__skills">
+                            <span class="skill-tag">Single-Agent RAG</span>
+                            <span class="skill-tag">Production Ownership</span>
+                            <span class="skill-tag">6 YOE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent Configuration -->
+            <div class="agents-section">
+                <div class="section-header">
+                    <span class="section-header__icon">🤖</span>
+                    <h2 class="section-header__title">Agent Panel</h2>
+                    <button id="btn-add-agent" class="btn btn--ghost" style="margin-left: auto; padding: 6px 12px; font-size: 12px;">+ Add Custom Agent</button>
+                </div>
+                <div id="agents-grid" class="agents-grid">
+                    <!-- Agents will be rendered here dynamically -->
+                </div>
+            </div>
+
+            <!-- Run Actions -->
+            <div class="run-section">
+                <button id="btn-run" class="run-btn">Start Evaluation Pipeline</button>
+            </div>
+        </section>
+
+        <!-- Pipeline Progress -->
+        <section id="pipeline-section" class="pipeline-section">
+            <div class="glass-card">
+                <div class="section-header">
+                    <span class="section-header__icon">⚡</span>
+                    <h2 class="section-header__title">Pipeline Status</h2>
+                </div>
+                
+                <div class="pipeline-steps" id="pipeline-steps">
+                    <div class="pipeline-step" id="step-profile">
+                        <span>📋</span> Profile
+                    </div>
+                    <span class="pipeline-step__connector">→</span>
+                    <div class="pipeline-step" id="step-evaluation">
+                        <span>🤖</span> Independent Eval
+                    </div>
+                    <span class="pipeline-step__connector">→</span>
+                    <div class="pipeline-step" id="step-debate">
+                        <span>💬</span> Debate
+                    </div>
+                    <span class="pipeline-step__connector">→</span>
+                    <div class="pipeline-step" id="step-decision">
+                        <span>⚖️</span> Decision
+                    </div>
+                </div>
+
+                <div class="event-log" id="event-log">
+                    <!-- Event logs stream here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Dashboard -->
+        <section id="results-section" class="results-section">
+            <div class="results-tabs">
+                <button class="results-tab active" data-target="panel-decision">Final Decision</button>
+                <button class="results-tab" data-target="panel-evaluations">Agent Evaluations</button>
+                <button class="results-tab" data-target="panel-debate">Debate Transcript</button>
+                <button class="results-tab" data-target="panel-profile">Candidate Profile</button>
+            </div>
+
+            <!-- Final Decision Panel -->
+            <div id="panel-decision" class="results-panel active">
+                <div class="glass-card final-decision" id="final-decision-content">
+                    <!-- Final decision rendered here -->
+                </div>
+            </div>
+
+            <!-- Agent Evaluations Panel -->
+            <div id="panel-evaluations" class="results-panel">
+                <div class="eval-grid" id="evaluations-content">
+                    <!-- Agent evals rendered here -->
+                </div>
+            </div>
+
+            <!-- Debate Panel -->
+            <div id="panel-debate" class="results-panel">
+                <div class="glass-card debate-timeline" id="debate-content">
+                    <!-- Debate rounds rendered here -->
+                </div>
+            </div>
+
+            <!-- Profile Panel -->
+            <div id="panel-profile" class="results-panel">
+                <div class="glass-card" id="profile-content">
+                    <!-- Profile JSON/View rendered here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Agent Edit Modal -->
+    <div id="agent-modal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal__header">
+                <h3 class="modal__title" id="modal-title">Edit Agent</h3>
+                <button class="modal__close" id="modal-close">×</button>
+            </div>
+            
+            <form id="agent-form">
+                <input type="hidden" id="agent-id">
+                <input type="hidden" id="agent-is-default">
+                
+                <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Name</label>
+                        <input type="text" id="agent-name" class="form-input" required>
+                    </div>
+                    <div class="form-group" style="width: 100px;">
+                        <label class="form-label">Icon (Emoji)</label>
+                        <input type="text" id="agent-icon" class="form-input" maxlength="2" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Role Description</label>
+                    <input type="text" id="agent-role" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Theme Color</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="agent-color" class="color-picker" value="#3b82f6">
+                        <div class="color-presets">
+                            <div class="color-preset" style="background: #3b82f6" data-color="#3b82f6"></div>
+                            <div class="color-preset" style="background: #8b5cf6" data-color="#8b5cf6"></div>
+                            <div class="color-preset" style="background: #10b981" data-color="#10b981"></div>
+                            <div class="color-preset" style="background: #ef4444" data-color="#ef4444"></div>
+                            <div class="color-preset" style="background: #f59e0b" data-color="#f59e0b"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Strictness (1-10)</label>
+                    <div class="slider-group">
+                        <input type="range" id="agent-strictness" class="form-slider" min="1" max="10" value="5">
+                        <div class="slider-value" id="strictness-val">5</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Decision Weight</label>
+                    <div class="slider-group">
+                        <input type="range" id="agent-weight" class="form-slider" min="0" max="2" step="0.1" value="1.0">
+                        <div class="slider-value" id="weight-val">1.0</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Evaluation Criteria (press Enter to add)</label>
+                    <div class="form-tags" id="criteria-tags">
+                        <input type="text" id="criteria-input" class="form-tag-input" placeholder="Add criterion...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">System Prompt / Instructions</label>
+                    <textarea id="agent-prompt" class="form-textarea" required></textarea>
+                </div>
+
+                <div class="modal__actions">
+                    <button type="button" id="btn-delete-agent" class="btn btn--danger" style="margin-right: auto; display: none;">Delete</button>
+                    <button type="button" id="btn-reset-agent" class="btn btn--ghost" style="margin-right: auto; display: none;">Reset to Default</button>
+                    <button type="button" class="btn btn--ghost" id="btn-cancel-agent">Cancel</button>
+                    <button type="submit" class="btn btn--primary">Save Agent</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

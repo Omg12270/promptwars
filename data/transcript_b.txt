@@ -1,0 +1,37 @@
+Interview Transcript — Candidate B (Ananya Iyer)
+
+Technical Section
+
+Q1 (Interviewer): Tell me about the RAG pipeline you built for the support-ticket assistant.
+A1: Sure — happy to walk through it step by step. We retrieve from a Chroma vector store built from past resolved tickets and internal docs. The top few matches get passed to the LLM, which drafts a response for a human agent to review before it goes out. We chunked documents by section rather than fixed length, since that kept related context together.
+
+Q2: Your resume mentions a ~40% accuracy improvement. How was that measured?
+A2: I want to be upfront about this — it was based on internal review, not a formal benchmark. A few of us spot-checked a sample of responses before and after the change and it felt clearly better, but I wouldn't want to present that number as something rigorous if it comes up again.
+
+Q3: Have you worked with multi-agent orchestration frameworks — LangGraph, CrewAI?
+A3: Not in production. I've read through the docs for both and built a small planner/executor toy project on my own time, but everything I've actually shipped has been single-agent RAG. That's a real gap relative to what this role needs, and I'd rather say that clearly than talk around it.
+
+Q4: How would you approach ramping up on multi-agent systems specifically?
+A4: I'd start by reading through your existing planner/executor/reviewer code directly, rather than a general course, since the real failure patterns usually aren't in the docs. Then I'd want to pair with someone on a small bug fix first, before touching the architecture itself.
+
+Behavioral Section
+
+Q5 (Interviewer): Tell me about a mistake you made and how you handled it.
+A5: I pushed a prompt change to the support assistant straight to production — we didn't have a review process at the time, so nothing stopped me. It caused a spike in bad responses for about two hours before we caught it and rolled back.
+
+Q6: What did you do after that?
+A6: A few things. First, I ran an incident retro with the team and was direct that it was my mistake in the writeup — I didn't want to soften that. Second, I proposed a pre-deploy checklist for prompt changes: a lightweight review step plus a small eval set to run before anything ships. It's been part of our process since.
+
+Q7 (Skeptic follow-up): Was there any pushback on you owning that mistake publicly, or did you find a way to spread the responsibility?
+A7: No, I named it as mine in the retro doc. One teammate pointed out we should've had the checklist before this happened, which is fair — but I didn't try to shift blame for the specific incident onto the process gap.
+
+Ownership / Hiring Manager Section
+
+Q8: This role is heavily oriented around multi-agent orchestration on day one. Given you haven't shipped that in production, how do you think about that gap?
+A8: It's real, and I'd rather you go in with clear eyes about it than find out later. What I'd point to instead is a pattern: I've picked up new technical areas quickly before — OCR pipelines, then RAG — and I tend to ask for help early instead of quietly struggling, which I think matters more for ramp time than having already touched this exact framework.
+
+Q9: Why should we invest in ramping you up here versus someone who already has multi-agent experience?
+A9: Honestly, I can't out-argue someone who's already done the exact work. What I'd say is I'm a safer bet on the production-ownership side — I've been through a real incident and changed how the team works because of it, not just shipped something that looked good in a demo.
+
+Q10: You've been at one company for six years. Any concern about adapting to a fast-moving startup environment?
+A10: It's a fair thing to ask about. I'd say the role itself changed a lot even though the employer didn't — I went from junior backend work, to leading a pipeline migration, to driving our team's move into AI. So I've had to keep adapting, just inside one company.

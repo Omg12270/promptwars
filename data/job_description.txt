@@ -1,0 +1,24 @@
+Job Description: AI Engineer — Agentic Systems (Freight Operations)
+
+Company: Cargonet AI — a freight-tech company that runs AI "agent" systems in real production, handling things like shipment quoting, booking, tracking, document processing, and fixing errors automatically.
+
+About the Role
+We need an engineer to help improve our existing AI agent system (think of it as multiple AI workers — a planner, an executor, a reviewer, and specialized agents — working together). This is not a research-only job. You will build real features that go live for real users, mostly by directing AI coding tools (like Claude Code) rather than writing every line by hand — and you'll be responsible for fixing things when they break in production.
+
+What You'll Do
+• Improve the multi-agent AI system (planner, executor, reviewer, and other agents) that powers freight operations: quoting, booking, tracking, document processing, and error handling.
+• Build features mainly by directing AI coding tools (like Claude Code) — reviewing and guiding their output, not just writing code yourself.
+• Work on the Python backend (built as small services) and the React.js front-end, using MongoDB as the database, to build clean features and easy-to-use screens for operators.
+• Improve how the AI is prompted, what tools/memory it has access to, and how it searches for relevant information (RAG / vector search); help decide which AI models to use for the best balance of quality and cost.
+• Keep the live system running smoothly — find and fix bugs when an AI agent misbehaves, and improve how we test and monitor the system.
+• Help connect the system to outside tools: carrier/shipping APIs, other business software, and document scanning (OCR) for extracting data from shipping documents like invoices.
+
+What We're Looking For
+• Solid Python backend skills (building APIs, working with small services).
+• Some real hands-on experience with AI/LLM systems — not just tutorials. Things like prompt writing, RAG/vector search, and testing how well an AI system performs.
+• Comfortable taking ownership when something breaks in production, not just when a demo goes well.
+• Basic React.js skills for building simple front-end screens.
+• Nice to have: experience with logistics/freight, document scanning (OCR), or connecting different business systems together.
+
+What This Role Is NOT
+This is not a "build it once and move on" role. We care as much about keeping things working reliably over time as we do about building the first version.

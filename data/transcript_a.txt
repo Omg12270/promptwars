@@ -1,0 +1,37 @@
+Interview Transcript — Candidate A (Rohan Malhotra)
+
+Technical Section
+
+Q1 (Interviewer): Walk me through the exception-handling engine you built at Voltrix.
+A1: It's planner-executor-reviewer. Failures come in, get classified, retried or escalated, then double-checked. I designed the whole retry/escalation logic.
+
+Q2: What made you choose that structure over a simpler rule-based system?
+A2: Rules don't scale. Too many failure types — timeouts, bad EDI, missing BOL fields. Agents handle that better.
+
+Q3: How do you measure whether the reviewer agent is actually catching real problems?
+A3: We track override rate. It's low. I'd have to check the exact number though, haven't looked recently.
+
+Q4: What's your approach to model routing?
+A4: Cost-based. Simple stuff to the SLM, harder reasoning to GPT-4. No formal study, just tuned it as things broke.
+
+Behavioral Section
+
+Q5 (Interviewer): Tell me about a time you disagreed with a teammate on a technical decision.
+A5: Teammate wanted to hardcode more categories up front. I pushed for the agent approach. We went with mine.
+
+Q6: Who actually wrote the retry/escalation logic that's in production now?
+A6: I designed it. Priya did a lot of the implementation, I reviewed her PRs. I was the architect.
+
+Q7 (Skeptic follow-up): Your resume says "sole architect." But it sounds like Priya built a lot of it. Can you clarify?
+A7: Fine — "sole architect" is probably too strong. I led the design, she built most of the production version.
+
+Ownership / Hiring Manager Section
+
+Q8: Why should we invest in ramping you up here versus someone with more freight-domain experience?
+A8: I move fast. I've built something structurally close to this already. I don't think I'd need much ramp time.
+
+Q9: This role needs long-term ownership of production reliability. How do you feel about being on-call for agent failures?
+A9: Fine, I've done on-call before. Though Voltrix's user base is still small, so I haven't seen serious incident volume yet.
+
+Q10: You've had three roles in 3.5 years, each under a year except the first. What's driving that?
+A10: Better pay and title, mostly. Voltrix is more aligned with what I want long-term.
