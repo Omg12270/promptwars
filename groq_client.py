@@ -7,7 +7,7 @@ import httpx
 from typing import Optional
 
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-DEFAULT_MODEL = "llama-3.3-70b-versatile"
+DEFAULT_MODEL = "openai/gpt-oss-120b"
 MAX_RETRIES = 3
 RETRY_DELAY = 2  # seconds
 
@@ -64,7 +64,12 @@ async def call_groq(
                 return content
 
         except (httpx.HTTPStatusError, httpx.RequestError, json.JSONDecodeError) as e:
-            last_error = e
+            if isinstance(e, httpx.HTTPStatusError):
+                error_body = e.response.text
+                last_error = f"{e} - Response body: {error_body}"
+            else:
+                last_error = e
+                
             if attempt < MAX_RETRIES - 1:
                 await _async_sleep(RETRY_DELAY * (attempt + 1))
 
