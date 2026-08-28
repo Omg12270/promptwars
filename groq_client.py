@@ -39,6 +39,9 @@ async def call_groq(
     if json_mode:
         payload["response_format"] = {"type": "json_object"}
 
+    if "gpt-oss" in model:
+        payload["reasoning_effort"] = "low"
+
     last_error = None
     for attempt in range(MAX_RETRIES):
         try:
